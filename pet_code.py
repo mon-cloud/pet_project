@@ -125,3 +125,5 @@ cua_so.bind("<Button>", xu_ly_input)
 cap_nhat_anh()
 kiem_tra_idle()
 cua_so.mainloop()
+
+#123
