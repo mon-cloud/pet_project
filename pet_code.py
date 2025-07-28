@@ -5,7 +5,12 @@ import threading
 import random
 import ctypes
 import google.generativeai as genai
-import os  # Dùng để load file an toàn
+import os  
+from dotenv import load_dotenv
+# Load các biến từ .env
+load_dotenv()
+# Lấy giá trị biến
+key = os.getenv("API_KEY")
 
 # ==== KÍCH THƯỚC MÀN HÌNH ====
 user32 = ctypes.windll.user32
@@ -33,10 +38,10 @@ def load_gif(path, size=(80, 80)):
     return frames
 
 # ==== LOAD ẢNH PET ====
-anh_ngoi = load_gif("./animation/ngoi.gif", size=(80, 80))
-anh_dung = load_gif("./animation/dung.gif", size=(80, 80))
-anh_di_trai = load_gif("./animation/di_trai.gif", size=(80, 80))
-anh_di_phai = load_gif("./animation/di_phai.gif", size=(80, 80))
+anh_ngoi = load_gif("./animation/ngoi.gif", size=(100, 100))
+anh_dung = load_gif("./animation/dung.gif", size=(100, 100))
+anh_di_trai = load_gif("./animation/di_trai.gif", size=(100, 100))
+anh_di_phai = load_gif("./animation/di_phai.gif", size=(100, 100))
 
 # ==== KHỞI TẠO PET ====
 vi_tri_x = 120
@@ -61,7 +66,7 @@ CHAT_OFFSET_Y = -150
 chat_visible = False
 
 # ==== Cấu hình Gemini ====
-genai.configure(api_key="AIzaSyAsdanUxNneTgN2K34CpHXuP5LWtZ3taYM")
+genai.configure(api_key = key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # ==== Khung chat ====
@@ -121,7 +126,7 @@ def gui_ai(event=None):
 
     def call_ai():
         try:
-            prompt = user_msg + ". Hãy trả lời trong 3-4 câu."
+            prompt = user_msg + ". Hãy trả lời trong 1-2 câu."
             response = model.generate_content(prompt)
             ket_qua = response.text.strip()
         except Exception as e:
